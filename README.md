@@ -1,4 +1,4 @@
-# G6-Raspberry-Pi
+# G6 Raspberry Pi
 
 ## Cloning
 ```bash
