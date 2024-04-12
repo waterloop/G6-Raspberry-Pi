@@ -15,5 +15,7 @@ class State:
     def case2(self):
         return "This is case 2"
 
+    def case3(self):
+        return "This is case 3"
     def default_case(self):
         return "This is the default case"
