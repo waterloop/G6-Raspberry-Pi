@@ -3,7 +3,7 @@ import can
 import config
 import ctypes
 import struct
-
+from config import GLOBAL, BMS_DATA, SENSORS_BOARD_DATA
 # struct justification
 # Python interpreter will sometimes add padding. we need to serialize into a string of bytes and then send to network
 
@@ -15,6 +15,7 @@ channel = 'can0'
     This function sends a message over CAN with a specified class as labeled in config.py
 
 """
+
 def SEND_MESSAGE(message_type):
     # define data object 
     send_data = []
