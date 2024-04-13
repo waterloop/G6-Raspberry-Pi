@@ -27,11 +27,13 @@ class MOTOR_CONTROLLER_DATA:
     error_code = c_uint8(0)
 
 class KELLY_DATA_FRAME1:
+    classifier = "KELLY_DATA_FRAME_1"
     driving_direction_kelly = c_uint8(0)
     motor_speed_kelly = c_uint16(0)
     motor_error_code_kelly = c_uint8(0)
 
 class KELLY_DATA_FRAME2:
+    classifier = "KELLY_DATA_FRAME_2"
     battery_voltage_kelly = c_uint16(0)
     battery_current_kelly = c_uint16(0)
     motor_temp_kelly = c_uint16(0)
