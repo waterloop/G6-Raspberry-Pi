@@ -1,19 +1,17 @@
 import time 
 import can
 import config
-import ctypes
+from ctypes import  c_uint8, c_uint16, c_uint32
 import struct
-from config import GLOBAL, BMS_DATA, SENSORS_BOARD_DATA
+from config import GLOBAL, BMS_DATA, SENSORS_BOARD_DATA, MOTOR_CONTROLLER_DATA, KELLY_DATA_FRAME1, KELLY_DATA_FRAME2
 # struct justification
 # Python interpreter will sometimes add padding. we need to serialize into a string of bytes and then send to network
 
 bustype = 'socketcan_native'
 channel = 'can0'
 
-
 """"ID: the class of the data we are sending
     This function sends a message over CAN with a specified class as labeled in config.py
-
 """
 
 def SEND_MESSAGE(message_type):
@@ -28,6 +26,4 @@ def SEND_MESSAGE(message_type):
     return True
 def RECIEVE_MESSAGE(message_type):
     return True
-
-
 
