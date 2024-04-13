@@ -3,13 +3,11 @@ import can
 from ctypes import c_uint8, c_uint16, c_uint32
 
 class BMS_DATA:
-    classifer  = "BMS_DATA"
     can_id = 0
     temperature   =   [c_uint8(0), c_uint8(0), c_uint8(0), c_uint8(0), c_uint8(0), c_uint8(0)] # def these are 8 bits each
     error_code    =    0
 
 class SENSORS_BOARD_DATA:
-    classifer = "SENSORS_BOARD_DATA"
     can_id = 0
     temperature = [c_uint16(0), c_uint16(0)]
     imu_data = c_uint16(0)
@@ -17,7 +15,6 @@ class SENSORS_BOARD_DATA:
     error_code = c_uint8(0)
 
 class MOTOR_CONTROLLER_DATA:
-    classifier = "MOTOR_CONTROLLER_DATA"
     can_id = 0
     battery_voltage = c_uint16(0)
     battery_current = c_uint16(0)
@@ -27,13 +24,13 @@ class MOTOR_CONTROLLER_DATA:
     error_code = c_uint8(0)
 
 class KELLY_DATA_FRAME1:
-    classifier = "KELLY_DATA_FRAME_1"
+    can_id = 0
     driving_direction_kelly = c_uint8(0)
     motor_speed_kelly = c_uint16(0)
     motor_error_code_kelly = c_uint8(0)
 
 class KELLY_DATA_FRAME2:
-    classifier = "KELLY_DATA_FRAME_2"
+    can_id = 0
     battery_voltage_kelly = c_uint16(0)
     battery_current_kelly = c_uint16(0)
     motor_temp_kelly = c_uint16(0)

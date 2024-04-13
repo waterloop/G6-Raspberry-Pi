@@ -18,7 +18,8 @@ def SEND_MESSAGE(message_type):
     # define data object 
     send_data = []
     if message_type.classifer=="BMS_DATA":
-        send_data = [message_type.temperature[0], message_type.temperature[1], message_type.temperature[2], message_type.temperature[3],message_type.temperature[4],message_type.temperature[5], error]
+        send_data = [message_type.temperature[0], message_type.temperature[1], message_type.temperature[2], message_type.temperature[3],message_type.temperature[4],message_type.temperature[5], message_type.error_code]
+
     # continue else-if chain
     bus=can.interface.Bus(channel=channel, bustype=bustype)
     msg = can.Message(arbitration_id=message_type.arbitration_id, data=send_data)
