@@ -4,7 +4,7 @@
 # start date: April 10th, 2024 😈😈😈
 
 # IMPORTS
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import time
 from threading import Thread
 from Header import State 
