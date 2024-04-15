@@ -49,12 +49,26 @@ def send_can():
     return 0
 
 
-def LV_CHECK_RUNNER(stop_event): # LED that indicates that LV_CHECK is running. This is what the State machine runs while another thread runs LV check processes
+def STARTUP_CHECK_RUNNER(stop_event, PIN): # LED that indicates that LV_CHECK is running. This is what the State machine runs while another thread runs LV check processes
     while not stop_event.is_set():
-        GPIO.output(LV_CHECK_PIN, GPIO.HIGH) 
+        GPIO.output(PIN, GPIO.HIGH) 
         time.sleep(300)
-        GPIO.output(LV_CHECK_PIN, GPIO.LOW)  
+        GPIO.output(PIN, GPIO.LOW)  
         time.sleep(300)
+    GPIO.cleanup()
+def THREAD_RUNNER(target_function, func_args, state):
+    stop_event = threading.Event()
+
+    t1 = threading.Thread(target=target_function, args=(stop_event, func_args))
+    t2 = threading.Thread(target=target_function)
+    t1.start()
+    t2.start()
+    t2.join() # t2 finishes
+    stop_event.set() # set event to end
+    
+    t1.join() # wait for t1 to finish
+
+    return state
 
 def main():
     state = State()
@@ -63,25 +77,25 @@ def main():
     # begin startup sequence for pod. We shall define two thread in this case. 
     # one thread will be responsible for running the state command. the other thread will run until the state command finishes. we will invoke the 
     # {STATE}_RUNNER function to accomplish this
-    stop_event = threading.Event()
+    state = THREAD_RUNNER(STARTUP_CHECK_RUNNER, LV_CHECK_PIN, state=state)
 
-    t1 = threading.Thread(target=LV_CHECK_RUNNER) 
-    t2 = threading.Thread(target=state.select)
-    t1.start()
-    t2.start()
+    state = THREAD_RUNNER(STARTUP_CHECK_RUNNER, LV_READY_PIN, state=state)
 
-    t2.join() # t2 finishes
-    stop_event.set() # set event to end
+    state = THREAD_RUNNER(STARTUP_CHECK_RUNNER, HV_CHECK_PIN, state=state)
+
+    state = THREAD_RUNNER(STARTUP_CHECK_RUNNER, HV_READY_PIN, state=state)
+
+    # t1 = threading.Thread(target=STARTUP_CHECK_RUNNER, args=(stop_event, LV_CHECK_PIN)) 
+    # t2 = threading.Thread(target=state.select)
+    # t1.start()
+    # t2.start()
+
+    # t2.join() # t2 finishes
+    # stop_event.set() # set event to end
     
-    t1.join() # wait for t1 to finish
+    # t1.join() # wait for t1 to finish
 
     # we have now completed the transition from state 0 to state 1 rofl this is so wraps 
-
-
-
-
-    print(state.case1())
-
 
 
 
