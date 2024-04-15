@@ -38,11 +38,8 @@ class State:
         elif self.current_case == 3:
             return self.case3()
     def LV_CHECK(self): # LV_CHECK function
-        time.sleep(5000)
+        time.sleep(5)
         self.current_state = 1
-        return 0
-        
-
         return "This is case 1"
 
     def case2(self):
