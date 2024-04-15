@@ -6,7 +6,8 @@
 # HV_CHECK = 3
 # HV_READY = 4
 # AUTOPILOT = 5
-# BRAKE = 6
+# BRAKE = 6]
+
 
 # RECIEVE_CAN = 7
 
@@ -20,6 +21,10 @@
 # MANUAL_CONTROLS_BRAKE = 23
 
 
+# IMPORTS
+
+import time
+
 
 class State:
     current_state = 0
@@ -27,12 +32,17 @@ class State:
         if self.current_case == 0:
             return self.default_case()
         elif self.current_case == 1:
-            return self.case1()
+            return self.LV_CHECK()
         elif self.current_case == 2:
             return self.case2()
         elif self.current_case == 3:
             return self.case3()
-    def case1(self):
+    def LV_CHECK(self): # LV_CHECK function
+        time.sleep(5000)
+        self.current_state = 1
+        return 0
+        
+
         return "This is case 1"
 
     def case2(self):
@@ -40,5 +50,6 @@ class State:
 
     def case3(self):
         return "This is case 3"
+    
     def default_case(self):
         return "This is the default case"

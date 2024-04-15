@@ -48,10 +48,6 @@ def send_can():
 
     return 0
 
-def LV_CHECK(): # LV_CHECK function
-    time.sleep(5000)
-    CURRENT_STATE = 1
-    return 0
 
 def LV_CHECK_RUNNER(): # LED that indicates that LV_CHECK is running
     GPIO.output(LV_CHECK_PIN, GPIO.HIGH) 
