@@ -30,23 +30,42 @@ class State:
     current_state = 0
     def select(self):
         if self.current_case == 0:
-            return self.default_case()
+            return self.BOOT()
         elif self.current_case == 1:
             return self.LV_CHECK()
         elif self.current_case == 2:
-            return self.case2()
+            return self.LV_READY()
         elif self.current_case == 3:
-            return self.case3()
+            return self.HV_CHECK()
+        elif self.current_state == 4:
+            return self.HV_READY()
+        
+    def BOOT(self):
+        time.sleep(10)
+        self.current_state = 1
+        return "this is boot"
+
     def LV_CHECK(self): # LV_CHECK function
         time.sleep(5)
-        self.current_state = 1
-        return "This is case 1"
+        self.current_state = 2
+        return "This is LV CHECK"
 
-    def case2(self):
-        return "This is case 2"
+    def LV_READY(self):
+        time.sleep(5)
+        self.current_state = 3
+        return "This is LV_READY"
 
-    def case3(self):
-        return "This is case 3"
+    def HV_CHECK(self):
+        time.sleep(5)
+        self.current_state = 4
+        return "This is HV_CHECK"
     
-    def default_case(self):
-        return "This is the default case"
+    def HV_READY(self):
+        time.sleep(5)
+        self.current_state = 5
+        return "This is HV_READY"
+    
+    def AUTOPILOT(self):
+        time.sleep(10)
+        self.current_state = 6
+        return "This is autopilot"

@@ -77,13 +77,23 @@ def main():
     # begin startup sequence for pod. We shall define two thread in this case. 
     # one thread will be responsible for running the state command. the other thread will run until the state command finishes. we will invoke the 
     # {STATE}_RUNNER function to accomplish this
-    state = THREAD_RUNNER(STARTUP_CHECK_RUNNER, LV_CHECK_PIN, state=state) # state 0 -> 1
+    state = state.select() # run boot, single threaded
 
-    state = THREAD_RUNNER(STARTUP_CHECK_RUNNER, LV_READY_PIN, state=state) # state 1 -> 2
+    state = THREAD_RUNNER(STARTUP_CHECK_RUNNER, LV_CHECK_PIN, state=state) # state 1 -> 2
 
-    state = THREAD_RUNNER(STARTUP_CHECK_RUNNER, HV_CHECK_PIN, state=state) # state 2 -> 3
+    state = THREAD_RUNNER(STARTUP_CHECK_RUNNER, LV_READY_PIN, state=state) # state 2 -> 3
 
-    state = THREAD_RUNNER(STARTUP_CHECK_RUNNER, HV_READY_PIN, state=state) # state 3 -> 4
+    state = THREAD_RUNNER(STARTUP_CHECK_RUNNER, HV_CHECK_PIN, state=state) # state 3 -> 4
+
+    state = THREAD_RUNNER(STARTUP_CHECK_RUNNER, HV_READY_PIN, state=state) # state 4 -> 5
+
+    # time to transition into autopilot
+
+    state = THREAD_RUNNER(STARTUP_CHECK_RUNNER, AUTOPILOT_PIN, state=state)
+
+    # now, we enter a predefined duty loop. 
+    # now, we need to invoke the processes responsible for the CAN and Bluetooth listener.
+
 
     # t1 = threading.Thread(target=STARTUP_CHECK_RUNNER, args=(stop_event, LV_CHECK_PIN)) 
     # t2 = threading.Thread(target=state.select)
