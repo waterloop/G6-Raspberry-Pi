@@ -1,21 +1,28 @@
 import time
 import can
-from ctypes import c_uint8, c_uint16, c_uint32
+from ctypes import c_uint8, c_uint16
+
+#assign CAN IDs to make code cleaner here 
+BMS_DATA_CAN_ID = 0
+SENSORS_BOARD_CAN_ID = 0
+MOTOR_CONTROLLER_CAN_ID = 0
+KELLY_DATA_FRAME1_CAN_ID = 0
+KELLY_DATA_FRAME2_CAN_ID = 0
 
 class BMS_DATA:
-    can_id = 0
+    can_id = BMS_DATA_CAN_ID
     temperature   =   [c_uint8(0), c_uint8(0), c_uint8(0), c_uint8(0), c_uint8(0), c_uint8(0)] # def these are 8 bits each
     error_code    =    0
 
 class SENSORS_BOARD_DATA:
-    can_id = 0
+    can_id = SENSORS_BOARD_CAN_ID
     temperature = [c_uint16(0), c_uint16(0)]
     imu_data = c_uint16(0)
     pressure_sensor_data = c_uint8(0)
     error_code = c_uint8(0)
 
 class MOTOR_CONTROLLER_DATA:
-    can_id = 0
+    can_id = MOTOR_CONTROLLER_CAN_ID
     battery_voltage = c_uint16(0)
     battery_current = c_uint16(0)
     motor_speed = c_uint16(0)
@@ -24,13 +31,13 @@ class MOTOR_CONTROLLER_DATA:
     error_code = c_uint8(0)
 
 class KELLY_DATA_FRAME1:
-    can_id = 0
+    can_id = KELLY_DATA_FRAME1_CAN_ID
     driving_direction_kelly = c_uint8(0)
     motor_speed_kelly = c_uint16(0)
     motor_error_code_kelly = c_uint8(0)
 
 class KELLY_DATA_FRAME2:
-    can_id = 0
+    can_id = KELLY_DATA_FRAME2_CAN_ID
     battery_voltage_kelly = c_uint16(0)
     battery_current_kelly = c_uint16(0)
     motor_temp_kelly = c_uint16(0)
@@ -44,18 +51,18 @@ class GLOBAL:
         WARN_OFFSET = 0xFF
 
         # MOTOR CONTROLLER
-        MOTOR_CONTROLLER_1 = 0x10F8109A
+        MOTOR_CONTROLLER_1 = 0x10F8109A #make this either MOTOR_CONTROLLER_CAN_ID or KELLY_DATA_FRAME1_CAN_ID ??
         MOTOR_CONTROLLER_2 = 0x10F8108D
         MOTOR_CONTROLLER = 0xFF
         MOTOR_CONTROLLER_WARN = MOTOR_CONTROLLER - WARN_OFFSET
 
         # BMS
-        BMS_BOARD = 0xFF
+        BMS_BOARD = BMS_DATA_CAN_ID
         BMS_TEMP = BMS_BOARD
         BMS_BOARD_WARN = BMS_TEMP - WARN_OFFSET
 
         # SENSORS
-        SENSOR_BOARD = 0xFF
+        SENSOR_BOARD = SENSORS_BOARD_CAN_ID
         SENSOR_BOARD_WARN = SENSOR_BOARD - WARN_OFFSET
 
 # THIS IS CONFIG.H FOR CROSS REFERENCE
