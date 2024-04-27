@@ -2,16 +2,33 @@ import time
 import can
 from ctypes import  c_uint8, c_uint16, c_uint32
 import struct
-from config import GLOBAL, BMS_DATA, SENSORS_BOARD_DATA, MOTOR_CONTROLLER_DATA, KELLY_DATA_FRAME1, KELLY_DATA_FRAME2
-# struct justification
-# Python interpreter will sometimes add padding. we need to serialize into a string of bytes and then send to network
+from config import *
 
-bustype = 'socketcan_native'
-channel = 'can0'
+#instantiate objects of all classes
+global_vars = GLOBAL()
+bms_data = BMS_DATA()
+sensors_board_data = SENSORS_BOARD_DATA()
+motor_controller_data = MOTOR_CONTROLLER_DATA()
+kelly_data_frame1 = KELLY_DATA_FRAME1()
+kelly_data_frame2 = KELLY_DATA_FRAME2()
 
-""""ID: the class of the data we are sending
-    This function sends a message over CAN with a specified class as labeled in config.py
+#assign CAN_IDs to all instantiated objects
+bms_data.can_id = global_vars.
+sensors_board_data.can_id = global_vars.
+motor_controller_data.can_id = global_vars.
+kelly_data_frame1.can_id = global_vars.
+kelly_data_frame2.can_id = global_vars.
+
+#define send and receive functions
 """
+FUNCTION:       message receive routine
+@ARG can_bus:   passed can object
+RETURN:         none
+"""
+def msg_rx_routine(can_bus):
+    rx_msg = can_bus.Message
+    print(rx_msg)
+
 
 def SEND_MESSAGE(message_type):
     # define data object 
