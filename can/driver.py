@@ -31,8 +31,42 @@ def RECEIVE_MESSAGE(can_bus):
     rx_msg = can_bus.Message
     print(rx_msg)
 
+    rx_data = rx_msg.data
+
     if rx_msg.arbitration_id == global_vars.BMS_BOARD:
-        
+        bms_data.temperature[0]=rx_data[0]
+        bms_data.temperature[1]=rx_data[1]
+        bms_data.temperature[2]=rx_data[2]
+        bms_data.temperature[3]=rx_data[3]
+        bms_data.temperature[4]=rx_data[4]
+        bms_data.temperature[5]=rx_data[5]
+        bms_data.error_code = rx_data[6]
+    
+    elif rx_msg.arbitration_id == global_vars.SENSOR_BOARD:
+        sensors_board_data.temperature[0] = rx_data[0]
+        sensors_board_data.temperature[1] = rx_data[1]
+        sensors_board_data.imu_data = rx_data[2]
+        sensors_board_data.pressure_sensor_data = rx_data[3]
+        sensors_board_data.error_code = rx_data[4]
+
+    elif rx_msg.arbitration_id == global_vars.MOTOR_CONTROLLER: #CHECK this might be wrong
+        motor_controller_data.battery_voltage = rx_data[0]
+        motor_controller_data.battery_current = rx_data[1]
+        motor_controller_data.motor_speed = rx_data[2]
+        motor_controller_data.motor_controller_temp = rx_data[3]
+        motor_controller_data.driving_direction = rx_data[4]
+        motor_controller_data.error_code = rx_data[5]
+
+    elif rx_msg.arbitration_id == global_vars.MOTOR_CONTROLLER_1:
+        kelly_data_frame1.driving_direction_kelly = rx_data[0]
+        kelly_data_frame1.motor_speed_kelly = rx_data[1]
+        kelly_data_frame1.motor_error_code_kelly = rx_data[2]
+
+    elif rx_msg.arbitration_id == global_vars.MOTOR_CONTROLLER_2:
+        kelly_data_frame2.battery_voltage_kelly = rx_data[0]
+        kelly_data_frame2.battery_current_kelly = rx_data[1]
+        kelly_data_frame2.motor_temp_kelly = rx_data[2]
+        kelly_data_frame2.motor_controller_temp_kelly = rx_data[3]
 
 """
 FUNCTION:       CREATE_SEND_DATA
