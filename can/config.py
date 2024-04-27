@@ -14,7 +14,7 @@ class SENSORS_BOARD_DATA:
     pressure_sensor_data = c_uint8(0)
     error_code = c_uint8(0)
 
-#this is going to be a problem. The 'data' part of a CAN message is a bytearray between 0 and 8 bytes. 
+
 class MOTOR_CONTROLLER_DATA:
     can_id = 0
     battery_voltage = c_uint8(0)

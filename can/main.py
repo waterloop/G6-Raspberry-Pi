@@ -22,7 +22,10 @@ def main():
     CAN1_notifier = can.Notifier(CAN1, [CAN1_listener])   #assign listener to notifier
 
     #send and receive messages
-    msg_data = 
+    # 1. send
+    msg_data = CREATE_SEND_DATA(0)
+    msg = can.Message(arbitration_id = 0x57, data = msg_data)
+    CAN1.send(msg)
 
 if __name__ == "__main__":
     main()
