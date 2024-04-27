@@ -18,9 +18,11 @@ def main():
 
     #create listener and notifier             
     #(TODO: configure CAN connection (masks, etc))
-    CAN1_listener = msg_rx_routine                                         
-    CAN1_notifier = can.Notifier(CAN1, [CAN1_listener])      #assign listener to notifier
+    CAN1_listener = RECEIVE_MESSAGE                                         
+    CAN1_notifier = can.Notifier(CAN1, [CAN1_listener])   #assign listener to notifier
 
+    #send and receive messages
+    msg_data = 
 
 if __name__ == "__main__":
     main()

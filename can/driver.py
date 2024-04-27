@@ -13,68 +13,90 @@ kelly_data_frame1 = KELLY_DATA_FRAME1()
 kelly_data_frame2 = KELLY_DATA_FRAME2()
 
 #assign CAN_IDs to all instantiated objects
-bms_data.can_id = global_vars.
-sensors_board_data.can_id = global_vars.
-motor_controller_data.can_id = global_vars.
-kelly_data_frame1.can_id = global_vars.
-kelly_data_frame2.can_id = global_vars.
+bms_data.can_id = global_vars.BMS_BOARD
+sensors_board_data.can_id = global_vars.SENSOR_BOARD
+motor_controller_data.can_id = global_vars.MOTOR_CONTROLLER: #CHECK this might be wrong
+kelly_data_frame1.can_id = global_vars.MOTOR_CONTROLLER_1
+kelly_data_frame2.can_id = global_vars.MOTOR_CONTROLLER_2
 
 #define send and receive functions
 """
-FUNCTION:       message receive routine
+FUNCTION:       RECEIVE_MESSAGE
 @ARG can_bus:   passed can object
 RETURN:         none
+WHAT IT DO?     receives a message on the bus. Writes message data to the correct
+                instantiated object based on the message's arbitration ID
 """
-def msg_rx_routine(can_bus):
+def RECEIVE_MESSAGE(can_bus):
     rx_msg = can_bus.Message
     print(rx_msg)
 
-
-def SEND_MESSAGE(message_type):
-    # define data object 
-    send_data = []
-    if message_type.can_id == BMS_DATA.can_id:
-        send_data = [message_type.temperature[0], 
-                    message_type.temperature[1], 
-                    message_type.temperature[2], 
-                    message_type.temperature[3],
-                    message_type.temperature[4],
-                    message_type.temperature[5],
-                    message_type.error_code]
-
-    elif message_type.can_id == SENSORS_BOARD_DATA.can_id:
-        send_data = [message_type.temperature[0],
-                    message_type.temperature[1],
-                    message_type.imu_data,
-                    message_type.pressure_sensor_data,
-                    message_type.error_code]
+    if rx_msg.arbitration_id == global_vars.BMS_BOARD:
         
-    elif message_type.can_id == MOTOR_CONTROLLER_DATA.can_id:
-        send_data = [message_type.battery_voltage,
-                    message_type.battery_current,
-                    message_type.motor_speed,
-                    message_type.motor_controller_temp,
-                    message_type.driving_direction,
-                    message_type.error_code]
 
-    elif message_type.can_id == KELLY_DATA_FRAME1.can_id:
-        send_data = [message_type.driving_direction_kelly,
-                    message_type.motor_speed_kelly,
-                    message_type.motor_error_code_kelly]
+"""
+FUNCTION:       CREATE_SEND_DATA
+@ARG can_bus:   
+RETURN:         data packet. Bytearray.
+WHAT IT DO?     Creates 'data' based on the arbitrationID 
+                of the frame we wish to send. Reveals the current state of 
+                the instantiated objects.
+"""
+def CREATE_SEND_DATA(arbitrationID):
+    # define data object 
+    data = []
+    if arbitrationID == global_vars.BMS_BOARD:
+        data = [bms_data.temperature[0], 
+                bms_data.temperature[1], 
+                bms_data.temperature[2], 
+                bms_data.temperature[3],
+                bms_data.temperature[4],
+                bms_data.temperature[5],
+                bms_data.error_code,
+                0]
 
-    elif message_type.can_id == KELLY_DATA_FRAME2.can_id:
-        send_data = [message_type.battery_voltage_kelly,
-                    message_type.battery_current_kelly,
-                    message_type.motor_temp_kelly,
-                    message_type.motor_controller_temp_kelly]
+    elif arbitrationID == global_vars.SENSOR_BOARD:
+        data = [sensors_board_data.temperature[0],
+                sensors_board_data.temperature[1],
+                sensors_board_data.imu_data,
+                sensors_board_data.pressure_sensor_data,
+                sensors_board_data.error_code,
+                0,
+                0,
+                0]
+        
+    elif arbitrationID == global_vars.MOTOR_CONTROLLER: #CHECK this might be wrong
+        data = [motor_controller_data.battery_voltage,
+                motor_controller_data.battery_current,
+                motor_controller_data.motor_speed,
+                motor_controller_data.motor_controller_temp,
+                motor_controller_data.driving_direction,
+                motor_controller_data.error_code,
+                0,
+                0]
+
+    elif arbitrationID == global_vars.MOTOR_CONTROLLER_1:
+        data = [kelly_data_frame1.driving_direction_kelly,
+                kelly_data_frame1.motor_speed_kelly,
+                kelly_data_frame1.motor_error_code_kelly,
+                0,
+                0,
+                0,
+                0]
+
+    elif arbitrationID == global_vars.MOTOR_CONTROLLER_2:
+        data = [kelly_data_frame2.battery_voltage_kelly,
+                kelly_data_frame2.battery_current_kelly,
+                kelly_data_frame2.motor_temp_kelly,
+                kelly_data_frame2.motor_controller_temp_kelly,
+                0,
+                0,
+                0,
+                0]
 
     else:
-        send_data = []
+        data = [0, 0, 0, 0, 0, 0, 0, 0]
 
-    bus=can.interface.Bus(channel=channel, bustype=bustype)
-    msg = can.Message(arbitration_id=message_type.arbitration_id, data=send_data)
-    bus.send(msg)
-    return True
-def RECIEVE_MESSAGE(message_type):
-    return True
+    return data
+
 

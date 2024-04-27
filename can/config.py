@@ -2,41 +2,40 @@ import time
 import can
 from ctypes import c_uint8, c_uint16
 
-
 class BMS_DATA:
-    can_id = BMS_DATA_CAN_ID
+    can_id = 0
     temperature   =   [c_uint8(0), c_uint8(0), c_uint8(0), c_uint8(0), c_uint8(0), c_uint8(0)]
     error_code    =    c_uint8(0)
 
 class SENSORS_BOARD_DATA:
-    can_id = SENSORS_BOARD_CAN_ID
-    temperature = [c_uint16(0), c_uint16(0)]
-    imu_data = c_uint16(0)
+    can_id = 0
+    temperature = [c_uint8(0), c_uint8(0)]
+    imu_data = c_uint8(0)
     pressure_sensor_data = c_uint8(0)
     error_code = c_uint8(0)
 
 #this is going to be a problem. The 'data' part of a CAN message is a bytearray between 0 and 8 bytes. 
 class MOTOR_CONTROLLER_DATA:
-    can_id = MOTOR_CONTROLLER_CAN_ID
-    battery_voltage = c_uint16(0)
-    battery_current = c_uint16(0)
-    motor_speed = c_uint16(0)
+    can_id = 0
+    battery_voltage = c_uint8(0)
+    battery_current = c_uint8(0)
+    motor_speed = c_uint8(0)
     motor_controller_temp = c_uint8(0)
-    driving_direction = c_uint16(0)
+    driving_direction = c_uint8(0)
     error_code = c_uint8(0)
 
 class KELLY_DATA_FRAME1:
-    can_id = KELLY_DATA_FRAME1_CAN_ID
+    can_id = 0
     driving_direction_kelly = c_uint8(0)
-    motor_speed_kelly = c_uint16(0)
+    motor_speed_kelly = c_uint8(0)
     motor_error_code_kelly = c_uint8(0)
 
 class KELLY_DATA_FRAME2:
-    can_id = KELLY_DATA_FRAME2_CAN_ID
-    battery_voltage_kelly = c_uint16(0)
-    battery_current_kelly = c_uint16(0)
-    motor_temp_kelly = c_uint16(0)
-    motor_controller_temp_kelly = c_uint16(0)
+    can_id = 0
+    battery_voltage_kelly = c_uint8(0)
+    battery_current_kelly = c_uint8(0)
+    motor_temp_kelly = c_uint8(0)
+    motor_controller_temp_kelly = c_uint8(0)
 
 class GLOBAL:
     def __init__(self):
