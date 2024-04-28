@@ -51,6 +51,12 @@ def import_func_from_bt_listener_for_duty_cycle():
         print("BT LISTENER")
         time.sleep(10)
     return -3
+def heartbeat_BT_conn():
+    while True:
+        print("BT Heartbeat")
+        time.sleep(10)
+    return -4
+
 
 def send_can():
     # simulate sending a message
@@ -104,7 +110,12 @@ def main():
     # now, we enter a predefined duty loop. 
     # now, we need to invoke the processes responsible for the CAN and Bluetooth listener.
     CAN_listener_process = threading.Thread(target=import_func_from_can_listener_for_duty_cycle, args="args")
-    BT_listener_process = threading.Thread(target=import_func_from_bt_listener_for_duty_cycle, args="args")
+    BT_listener_process = threading.Thread(target=import_func_from_bt_listener_for_duty_cycle, args="args") 
+    HB_listener_process = threading.Thread(target=heartbeat_BT_conn, args="args")
+    while(True):
+        # duty cycle
+
+
 
 
     # t1 = threading.Thread(target=STARTUP_CHECK_RUNNER, args=(stop_event, LV_CHECK_PIN)) 
