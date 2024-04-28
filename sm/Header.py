@@ -41,7 +41,7 @@ class State:
             return self.HV_READY()
         
     def BOOT(self):
-        time.sleep(10)
+        time.sleep(5)
         self.current_state = 1
         return "this is boot"
 
