@@ -27,7 +27,8 @@ import time
 
 
 class State:
-    current_state = 0
+    def State(self):
+        self.current_state = 0
     def select(self):
         if self.current_state == 0:
             return self.BOOT()
