@@ -113,6 +113,8 @@ def main():
     BT_listener_process = threading.Thread(target=import_func_from_bt_listener_for_duty_cycle, args="args") 
     HB_listener_process = threading.Thread(target=heartbeat_BT_conn, args="args")
     while(True):
+        print("aAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+        time.sleep(1)
         # duty cycle
 
 
