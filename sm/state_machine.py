@@ -41,6 +41,16 @@ HV_CHECK_PIN = 6
 HV_READY_PIN = 7
 AUTOPILOT_PIN = 10
 
+def import_func_from_can_listener_for_duty_cycle():
+    while True:
+        print("CAN LISTENER")
+        time.sleep(10)
+    return -2
+def import_func_from_bt_listener_for_duty_cycle():
+    while True:
+        print("BT LISTENER")
+        time.sleep(10)
+    return -3
 
 def send_can():
     # simulate sending a message
@@ -89,10 +99,12 @@ def main():
 
     # time to transition into autopilot
 
-    state = THREAD_RUNNER(STARTUP_CHECK_RUNNER, AUTOPILOT_PIN, state=state)
+    state = THREAD_RUNNER(STARTUP_CHECK_RUNNER, AUTOPILOT_PIN, state=state) # autpilot is now active. startup is complete
 
     # now, we enter a predefined duty loop. 
     # now, we need to invoke the processes responsible for the CAN and Bluetooth listener.
+    CAN_listener_process = threading.Thread(target=import_func_from_can_listener_for_duty_cycle, args="args")
+    BT_listener_process = threading.Thread(target=import_func_from_bt_listener_for_duty_cycle, args="args")
 
 
     # t1 = threading.Thread(target=STARTUP_CHECK_RUNNER, args=(stop_event, LV_CHECK_PIN)) 
