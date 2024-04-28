@@ -36,9 +36,9 @@ MANUAL_CONTROLS_BRAKE = 23
 # BETA PIN DEFINITIONS
 
 LV_CHECK_PIN = 4
-LV_READY_PIN = 5
-HV_CHECK_PIN = 6
-HV_READY_PIN = 7
+LV_READY_PIN = 4
+HV_CHECK_PIN = 4
+HV_READY_PIN = 4
 AUTOPILOT_PIN = 10
 
 def import_func_from_can_listener_for_duty_cycle():
