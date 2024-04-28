@@ -7,7 +7,7 @@
 import RPi.GPIO as GPIO
 import time
 import threading
-from Header import State 
+from Header import State, change_state_runner
 
 # GLOBALS
 
@@ -76,7 +76,7 @@ def THREAD_RUNNER(target_function, func_args, state):
     stop_event = threading.Event()
 
     t1 = threading.Thread(target=target_function, args=(stop_event, func_args))
-    t2 = threading.Thread(target=state.select)
+    t2 = threading.Thread(target=change_state_runner, args=state)
     t1.start()
     t2.start()
     t2.join() # t2 finishes

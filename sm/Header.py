@@ -69,3 +69,6 @@ class State:
         time.sleep(10)
         self.current_state = 6
         return "This is autopilot"
+    
+def change_state_runner(state):
+    state.select()
