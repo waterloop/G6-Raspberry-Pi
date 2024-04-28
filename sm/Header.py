@@ -29,13 +29,13 @@ import time
 class State:
     current_state = 0
     def select(self):
-        if self.current_case == 0:
+        if self.current_state == 0:
             return self.BOOT()
-        elif self.current_case == 1:
+        elif self.current_state == 1:
             return self.LV_CHECK()
-        elif self.current_case == 2:
+        elif self.current_state == 2:
             return self.LV_READY()
-        elif self.current_case == 3:
+        elif self.current_state == 3:
             return self.HV_CHECK()
         elif self.current_state == 4:
             return self.HV_READY()
