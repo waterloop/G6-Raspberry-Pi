@@ -27,7 +27,7 @@ import time
 
 
 class State:
-    def State(self):
+    def __init__(self):
         self.current_state = 0
     def select(self):
         if self.current_state == 0:
