@@ -44,7 +44,6 @@ AUTOPILOT_PIN = 10
 GPIO.setmode(GPIO.BCM)
 
 GPIO.setup(4, GPIO.OUT)
-GPIO.output(4, GPIO.HIGH)
 def import_func_from_can_listener_for_duty_cycle():
     while True:
         print("CAN LISTENER")
