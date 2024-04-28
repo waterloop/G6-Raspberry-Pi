@@ -41,6 +41,10 @@ HV_CHECK_PIN = 4
 HV_READY_PIN = 4
 AUTOPILOT_PIN = 10
 
+GPIO.setmode(GPIO.BCM)
+
+GPIO.setup(4, GPIO.OUT)
+
 def import_func_from_can_listener_for_duty_cycle():
     while True:
         print("CAN LISTENER")
