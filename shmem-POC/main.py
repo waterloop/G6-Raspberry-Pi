@@ -47,19 +47,15 @@ def main():
     listener_process.start()
     processor_process.start()
 
-    # Allow processes to run for a while then shut them down for test purposes
     try:
-        # Let them run for some time
-        listener_process.join(timeout=10)  # Timeout in seconds
+        listener_process.join(timeout=10)  
         processor_process.join(timeout=10)
     except KeyboardInterrupt:
         pass
     finally:
-        # Cleanup: Terminate processes
         listener_process.terminate()
         processor_process.terminate()
 
-        # Close and unlink shared memory
         shm.close()
         shm.unlink()
 
