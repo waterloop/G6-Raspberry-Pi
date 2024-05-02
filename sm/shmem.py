@@ -5,7 +5,7 @@
 
 from multiprocessing import shared_memory
 from multiprocessing.synchronize import Event
-
+from server_cpp_shmem import server_cpp_to_py
 def CAN_shmem_listener(shmem_name: str, data_available: Event, data_processed: Event):
     """
     function description
@@ -54,15 +54,17 @@ def BT_shmem_listener(shmem_name, data_available, data_processed):
         # FUNCTION RETURNS 
         # THIS FUNCTION RUNS THE REST OF IT'S CODE ( VERY FEW CLOCK CYCLES)
         # RESTARTS THE SERVER SHMEM LISTENER
-
-
+        message = server_cpp_to_py()
+        if message == "":
+            continue
         # read from server shmem 
-        message = b"test" # b is used to cast to byte 
-        data_processed.wait()
-        data_processed.clear()
+        # message = b"test" # b is used to cast to byte 
+        else:
+            data_processed.wait()
+            data_processed.clear()
 
-        shm.buf[:len(message)] = message
-        data_available.set    
+            shm.buf[:len(message)] = message
+            data_available.set    
 
 
 def BT_shmem_processor(shmem_name, data_available, data_processed): 
