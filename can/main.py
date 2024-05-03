@@ -54,7 +54,7 @@ def main():
     CAN1_notifier = can.Notifier(CAN1, [CAN1_listener])  # Assign listener to notifier
 
     msg_data = [(0xF0), (0xF0), (0xF0), (0xF0)]
-    msg = can.Message(arbitration_id = 0x57, data = msg_data)
+    msg = can.Message(arbitration_id = 0x57, data = msg_data, is_extended_id = False)
 
     CAN1.send(msg)
     time.sleep(0.001)  # Allow some time for message handling
