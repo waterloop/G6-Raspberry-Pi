@@ -46,7 +46,7 @@ class GLOBAL:
 
         # BMS
         self.BMS_BOARD = 0
-        self.BMS_BOARD_WARN = self.BMS_TEMP - self.WARN_OFFSET
+        self.BMS_BOARD_WARN = self.BMS_BOARD - self.WARN_OFFSET
 
         # SENSOR BOARD 1
         self.SENSOR_BOARD_1 = 0
@@ -55,7 +55,7 @@ class GLOBAL:
         # SENSOR BOARD 2
         self.SENSOR_BOARD_2 = 0
         self.SENSOR_BOARD_2_WARN = self.SENSOR_BOARD_2 - self.WARN_OFFSET
-        
+
 
 # THIS IS CONFIG.H FOR CROSS REFERENCE
 
