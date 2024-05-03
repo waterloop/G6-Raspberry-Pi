@@ -53,7 +53,7 @@ def main():
     CAN1_listener = MessageListener()
     CAN1_notifier = can.Notifier(CAN1, [CAN1_listener])  # Assign listener to notifier
 
-    msg_data = [0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0]
+    msg_data = [byte(0xF0), byte(0xF0), byte(0xF0), byte(0xF0)]
     msg = can.Message(arbitration_id = 0x57, data = msg_data)
 
     CAN1.send(msg)
