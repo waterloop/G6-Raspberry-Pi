@@ -26,8 +26,10 @@ WHAT IT DO?     receives a message on the bus. Writes message data to the correc
                 instantiated object based on the message's arbitration ID
 """
 def RECEIVE_MESSAGE(can_bus):
-    rx_msg = can_bus.Message
-    print(rx_msg)
+    rx_msg = can_bus.recv()
+    print (rx_msg)
+    # rx_msg = can_bus.Message
+    # print(rx_msg)
 
     # rx_data = rx_msg.data
 
