@@ -34,26 +34,28 @@ class MOTOR_CONTROLLER_DATA:
 class GLOBAL:
     def __init__(self):
     # GENERAL DEFINES
-        MAX_CAN_PAYLOAD_BYTES = 8
-        BUFF_SIZE = 32
-        WARN_OFFSET = 0xFF
+        self.MAX_CAN_PAYLOAD_BYTES = 8
+        self.BUFF_SIZE = 32
+        self.WARN_OFFSET = 0xFF
+
+    #CAN ID DEFINES
 
         # MOTOR CONTROLLER
-        MOTOR_CONTROLLER = 0xFF
-        MOTOR_CONTROLLER_WARN = MOTOR_CONTROLLER - WARN_OFFSET
+        self.MOTOR_CONTROLLER = 0xFF
+        self.MOTOR_CONTROLLER_WARN = self.MOTOR_CONTROLLER - self.WARN_OFFSET
 
         # BMS
-        BMS_BOARD = 0
-        BMS_TEMP = 0
-        BMS_BOARD_WARN = BMS_TEMP - WARN_OFFSET
+        self.BMS_BOARD = 0
+        self.BMS_BOARD_WARN = self.BMS_TEMP - self.WARN_OFFSET
 
         # SENSOR BOARD 1
-        SENSOR_BOARD_1 = 0
-        SENSOR_BOARD_1_WARN = SENSOR_BOARD_1 - WARN_OFFSET
+        self.SENSOR_BOARD_1 = 0
+        self.SENSOR_BOARD_1_WARN = self.SENSOR_BOARD_1 - self.WARN_OFFSET
 
         # SENSOR BOARD 2
-        SENSOR_BOARD_2 = 0
-        SENSOR_BOARD_2_WARN = SENSOR_BOARD_2 - WARN_OFFSET
+        self.SENSOR_BOARD_2 = 0
+        self.SENSOR_BOARD_2_WARN = self.SENSOR_BOARD_2 - self.WARN_OFFSET
+        
 
 # THIS IS CONFIG.H FOR CROSS REFERENCE
 

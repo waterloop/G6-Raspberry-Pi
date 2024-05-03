@@ -7,17 +7,15 @@ from config import *
 #instantiate objects of all classes
 global_vars = GLOBAL()
 bms_data = BMS_DATA()
-sensors_board_data = SENSORS_BOARD_DATA()
+sensors_1 = SENSORS_1()
+sensors_2 = SENSORS_2()
 motor_controller_data = MOTOR_CONTROLLER_DATA()
-kelly_data_frame1 = KELLY_DATA_FRAME1()
-kelly_data_frame2 = KELLY_DATA_FRAME2()
 
 #assign CAN_IDs to all instantiated objects
 bms_data.can_id = global_vars.BMS_BOARD
-sensors_board_data.can_id = global_vars.SENSOR_BOARD
-motor_controller_data.can_id = global_vars.MOTOR_CONTROLLER: #CHECK this might be wrong
-kelly_data_frame1.can_id = global_vars.MOTOR_CONTROLLER_1
-kelly_data_frame2.can_id = global_vars.MOTOR_CONTROLLER_2
+sensors_1.can_id = global_vars.SENSOR_BOARD_1
+sensors_2.can_id = global_vars.SENSOR_BOARD_2
+motor_controller_data.can_id = global_vars.MOTOR_CONTROLLER
 
 #define send and receive functions
 """

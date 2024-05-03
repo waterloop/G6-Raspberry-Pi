@@ -10,7 +10,7 @@ def main():
     os.system("sudo /sbin/ip link set can0 up type can bitrate 500000")   #bring up can0 interface at 500kbps
     time.sleep(0.05)
     try:
-	    CAN1 = can.interface.Bus(channel='can0', bustype='socketcan')   #instance CAN object
+	    CAN1 = can.interface.Bus(channel='can0', bustype='socketcan')   #instantiate CAN object
     except OSError:
 	    print('Cannot find PiCAN board.')
 	    exit()
