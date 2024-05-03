@@ -26,6 +26,6 @@ def main():
     msg_data = [0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0]
     msg = can.Message(arbitration_id = 0x57, data = msg_data)
     CAN1.send(msg)
-
+    os.system("sudo ip link set can0 down")
 if __name__ == "__main__":
     main()
