@@ -33,7 +33,7 @@ def RECEIVE_MESSAGE(can_bus):
 
     rx_data = rx_msg.data
 
-    if rx_msg.arbitration_id == global_vars.BMS_BOARD:
+    if rx_msg.arbitration_id == global_vars.BMS_BOARD :
         bms_data.temperature[0]=rx_data[0]
         bms_data.temperature[1]=rx_data[1]
         bms_data.temperature[2]=rx_data[2]
