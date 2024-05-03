@@ -18,8 +18,8 @@ def main():
 
     #create listener and notifier             
     #(TODO: configure CAN connection (masks, etc))
-    CAN1_listener = RECEIVE_MESSAGE                                         
-    CAN1_notifier = can.Notifier(CAN1, [CAN1_listener])   #assign listener to notifier
+    CAN1_listener = RECEIVE_MESSAGE                                        
+    CAN1_notifier = can.Notifier(CAN1, [CAN1_listener, CAN1])   #assign listener to notifier
 
     #send and receive messages
     # 1. send
