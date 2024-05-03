@@ -118,15 +118,23 @@ def CREATE_SEND_DATA(arbitrationID):
                sensors_2.error_code]
 
     elif (arbitrationID == global_vars.MOTOR_CONTROLLER) or (arbitrationID == global_vars.MOTOR_CONTROLLER_WARN):
-        
-        data = [motor_controller_data.battery_voltage,
-                motor_controller_data.battery_current,
-                motor_controller_data.motor_speed,
+
+        msb_voltage = bytes(motor_controller_data.battery_voltage & (0b11111111 << 8))
+        lsb_voltage = bytes(motor_controller_data.battery_voltage& (0b11111111))
+        msb_current = bytes(motor_controller_data.battery_current & (0b11111111 << 8))
+        lsb_current = bytes(motor_controller_data.battery_current & (0b11111111))
+        msb_motor_speed = bytes(motor_controller_data.motor_speed & (0b11111111 << 8))
+        lsb_motor_speed = bytes(motor_controller_data.motor_speed & (0b11111111))
+
+        data = [msb_voltage,
+                lsb_voltage,
+                msb_current,
+                lsb_current,
+                msb_motor_speed,
+                lsb_motor_speed,
                 motor_controller_data.motor_controller_temp,
-                motor_controller_data.driving_direction,
-                motor_controller_data.error_code,
-                0,
-                0]
+                motor_controller_data.driving_direction
+                ]
 
     else:
         data = [0, 0, 0, 0, 0, 0, 0, 0]
