@@ -57,10 +57,10 @@ def main():
     msg = can.Message(arbitration_id = 0x57, data = msg_data)
 
     CAN1.send(msg)
-    time.sleep(1)  # Allow some time for message handling
+    time.sleep(0.001)  # Allow some time for message handling
     CAN1_notifier.stop()
 
     os.system("sudo ip link set can0 down")
-    
+
 if __name__ == "__main__":
     main()
