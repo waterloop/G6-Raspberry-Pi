@@ -2,7 +2,7 @@ import can
 import time
 import os
 from config import *
-from driver import *
+from driver import RECEIVE_MESSAGE, CREATE_SEND_DATA 
 
 def main():
 
