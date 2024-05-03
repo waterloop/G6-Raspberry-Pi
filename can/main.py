@@ -58,7 +58,7 @@ def main():
     msg = can.Message(arbitration_id = 0x57, data = msg_data, is_extended_id = False)
     print(f"MESSAGE: {msg} \n")
     CAN0.send(msg)
-    time.sleep(0.001)  # Allow some time for message handling
+    time.sleep(0.5)  # Allow some time for message handling
 
     CAN0_notifier.stop()
     CAN0.shutdown()
