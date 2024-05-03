@@ -84,7 +84,7 @@ def CREATE_SEND_DATA(arbitrationID):
                 0]
 
     elif (arbitrationID == global_vars.SENSOR_BOARD_1) or (arbitrationID == global_vars.SENSOR_BOARD_1_WARN):
-        
+
         msb_pressure = bytes(sensors_1.pressure_sensor_data & (0b11111111 << 8))
         lsb_pressure = bytes(sensors_1.pressure_sensor_data & 0b11111111)
         msb_lim_temp_0 = bytes(sensors_1.lim_temperature[0] & (0b11111111 << 8))
@@ -102,9 +102,23 @@ def CREATE_SEND_DATA(arbitrationID):
                 0]
 
     elif (arbitrationID == global_vars.SENSOR_BOARD_2) or (arbitrationID == global_vars.SENSOR_BOARD_2_WARN):
-        data = []
+
+        msb_x_accel = bytes(sensors_2.x_acceleration & (0b11111111 << 8))
+        lsb_x_accel = bytes(sensors_2.x_acceleration & (0b11111111))
+        msb_y_accel = bytes(sensors_2.y_acceleration & (0b11111111 << 8))
+        lsb_y_accel = bytes(sensors_2.y_acceleration & (0b11111111))
+
+        data = [msb_x_accel,
+               lsb_x_accel,
+               msb_y_accel,
+               lsb_y_accel,
+               sensors_2.x_gyro,
+               sensors_2.y_gyro,
+               sensors_2.z_gyro,
+               sensors_2.error_code]
 
     elif (arbitrationID == global_vars.MOTOR_CONTROLLER) or (arbitrationID == global_vars.MOTOR_CONTROLLER_WARN):
+        
         data = [motor_controller_data.battery_voltage,
                 motor_controller_data.battery_current,
                 motor_controller_data.motor_speed,
