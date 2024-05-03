@@ -42,7 +42,7 @@ class MessageListener(can.Listener):
 
 def main():
     os.system("sudo ip link set can0 up type can bitrate 500000")  # Bring up can0 interface at 500kbps
-    # os.system("sudo ip link set can1 up type can bitrate 500000")
+    os.system("sudo ip link set can1 up type can bitrate 500000")
     time.sleep(0.05)
     try:
         CAN0 = can.interface.Bus(channel='can0', bustype='socketcan')  # Instantiate CAN object
@@ -58,12 +58,13 @@ def main():
     msg = can.Message(arbitration_id = 0x57, data = msg_data, is_extended_id = False)
 
     CAN0.send(msg)
-    time.sleep(0.001)  # Allow some time for message handling
+    time.sleep(0.01)  # Allow some time for message handling
 
     CAN0_notifier.stop()
     CAN0.shutdown()
 
     os.system("sudo ip link set can0 down")
+    os.system("sudo ip link set can1 down")
 
 if __name__ == "__main__":
     main()
