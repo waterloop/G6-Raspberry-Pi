@@ -43,7 +43,7 @@ class MessageListener(can.Listener):
 def main():
     os.system("sudo ip link set can0 up type can bitrate 500000")  # Bring up can0 interface at 500kbps
     #os.system("sudo ip link set can1 up type can bitrate 500000")
-    time.sleep(0.05)
+    time.sleep(10)
     try:
         CAN0 = can.interface.Bus(channel='can0', bustype='socketcan')  # Instantiate CAN object
     except OSError:
