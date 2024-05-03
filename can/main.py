@@ -58,7 +58,9 @@ def main():
 
     CAN1.send(msg)
     time.sleep(0.001)  # Allow some time for message handling
+
     CAN1_notifier.stop()
+    CAN1.shutdown()
 
     os.system("sudo ip link set can0 down")
 
