@@ -84,14 +84,23 @@ def CREATE_SEND_DATA(arbitrationID):
                 0]
 
     elif (arbitrationID == global_vars.SENSOR_BOARD_1) or (arbitrationID == global_vars.SENSOR_BOARD_1_WARN):
-        data = [sensors_1.pressure_sensor_data & (0b11111111 << 8),
-                sensors_1.pressure_sensor_data & 0b11111111,
-                sensors_1.lim_temperature[0] & (0b11111111 << 8),
-                sensors_1.lim_temperature[0] & (0b11111111),
-                sensors_1.lim_temperature[1] & (0b11111111 << 8),
-                sensors_1.lim_temperature[1] & (0b11111111),
+        
+        msb_pressure = bytes(sensors_1.pressure_sensor_data & (0b11111111 << 8))
+        lsb_pressure = bytes(sensors_1.pressure_sensor_data & 0b11111111)
+        msb_lim_temp_0 = bytes(sensors_1.lim_temperature[0] & (0b11111111 << 8))
+        lsb_lim_temp_0 = bytes(sensors_1.lim_temperature[0] & (0b11111111))
+        msb_lim_temp_1 = bytes(sensors_1.lim_temperature[1] & (0b11111111 << 8))
+        lsb_lim_temp_1 = bytes(sensors_1.lim_temperature[1] & (0b11111111))
+
+        data = [msb_pressure,
+                lsb_pressure,
+                msb_lim_temp_0,
+                lsb_lim_temp_0,
+                msb_lim_temp_1,
+                lsb_lim_temp_1,
                 sensors_1.error_code,
                 0]
+
     elif (arbitrationID == global_vars.SENSOR_BOARD_2) or (arbitrationID == global_vars.SENSOR_BOARD_2_WARN):
         data = []
 
