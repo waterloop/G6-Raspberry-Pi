@@ -23,7 +23,7 @@ def main():
 
     #send and receive messages
     # 1. send
-    msg_data = CREATE_SEND_DATA(0)
+    msg_data = [0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0]
     msg = can.Message(arbitration_id = 0x57, data = msg_data)
     CAN1.send(msg)
 

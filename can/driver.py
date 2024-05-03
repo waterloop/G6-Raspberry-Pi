@@ -29,38 +29,38 @@ def RECEIVE_MESSAGE(can_bus):
     rx_msg = can_bus.Message
     print(rx_msg)
 
-    rx_data = rx_msg.data
+    # rx_data = rx_msg.data
 
-    if (rx_msg.arbitration_id == global_vars.BMS_BOARD) or (rx_msg.arbitration_id == global_vars.BMS_BOARD_WARN):
-        bms_data.temperature[0]=rx_data[0]
-        bms_data.temperature[1]=rx_data[1]
-        bms_data.temperature[2]=rx_data[2]
-        bms_data.temperature[3]=rx_data[3]
-        bms_data.temperature[4]=rx_data[4]
-        bms_data.temperature[5]=rx_data[5]
-        bms_data.error_code = rx_data[6]
+    # if (rx_msg.arbitration_id == global_vars.BMS_BOARD) or (rx_msg.arbitration_id == global_vars.BMS_BOARD_WARN):
+    #     bms_data.temperature[0]=rx_data[0]
+    #     bms_data.temperature[1]=rx_data[1]
+    #     bms_data.temperature[2]=rx_data[2]
+    #     bms_data.temperature[3]=rx_data[3]
+    #     bms_data.temperature[4]=rx_data[4]
+    #     bms_data.temperature[5]=rx_data[5]
+    #     bms_data.error_code = rx_data[6]
     
-    elif (rx_msg.arbitration_id == global_vars.SENSOR_BOARD_1) or (rx_msg.arbitration_id == global_vars.SENSOR_BOARD_1_WARN):
-        sensors_board_data.temperature[0] = rx_data[0]
-        sensors_board_data.temperature[1] = rx_data[1]
-        sensors_board_data.imu_data = rx_data[2]
-        sensors_board_data.pressure_sensor_data = rx_data[3]
-        sensors_board_data.error_code = rx_data[4]
+    # elif (rx_msg.arbitration_id == global_vars.SENSOR_BOARD_1) or (rx_msg.arbitration_id == global_vars.SENSOR_BOARD_1_WARN):
+    #     sensors_board_data.temperature[0] = rx_data[0]
+    #     sensors_board_data.temperature[1] = rx_data[1]
+    #     sensors_board_data.imu_data = rx_data[2]
+    #     sensors_board_data.pressure_sensor_data = rx_data[3]
+    #     sensors_board_data.error_code = rx_data[4]
     
-    elif (rx_msg.arbitration_id == global_vars.SENSOR_BOARD_2) or (rx_msg.arbitration_id == global_vars.SENSOR_BOARD_2_WARN):
-        sensors_board_data.temperature[0] = rx_data[0]
-        sensors_board_data.temperature[1] = rx_data[1]
-        sensors_board_data.imu_data = rx_data[2]
-        sensors_board_data.pressure_sensor_data = rx_data[3]
-        sensors_board_data.error_code = rx_data[4]
+    # elif (rx_msg.arbitration_id == global_vars.SENSOR_BOARD_2) or (rx_msg.arbitration_id == global_vars.SENSOR_BOARD_2_WARN):
+    #     sensors_board_data.temperature[0] = rx_data[0]
+    #     sensors_board_data.temperature[1] = rx_data[1]
+    #     sensors_board_data.imu_data = rx_data[2]
+    #     sensors_board_data.pressure_sensor_data = rx_data[3]
+    #     sensors_board_data.error_code = rx_data[4]
 
-    elif rx_msg.arbitration_id == global_vars.MOTOR_CONTROLLER:
-        motor_controller_data.battery_voltage = rx_data[0]
-        motor_controller_data.battery_current = rx_data[1]
-        motor_controller_data.motor_speed = rx_data[2]
-        motor_controller_data.motor_controller_temp = rx_data[3]
-        motor_controller_data.driving_direction = rx_data[4]
-        motor_controller_data.error_code = rx_data[5]
+    # elif rx_msg.arbitration_id == global_vars.MOTOR_CONTROLLER:
+    #     motor_controller_data.battery_voltage = rx_data[0]
+    #     motor_controller_data.battery_current = rx_data[1]
+    #     motor_controller_data.motor_speed = rx_data[2]
+    #     motor_controller_data.motor_controller_temp = rx_data[3]
+    #     motor_controller_data.driving_direction = rx_data[4]
+    #     motor_controller_data.error_code = rx_data[5]
     
 """
 FUNCTION:       CREATE_SEND_DATA
@@ -133,8 +133,7 @@ def CREATE_SEND_DATA(arbitrationID):
                 msb_motor_speed,
                 lsb_motor_speed,
                 motor_controller_data.motor_controller_temp,
-                motor_controller_data.driving_direction
-                ]
+                motor_controller_data.driving_direction]
 
     else:
         data = [0, 0, 0, 0, 0, 0, 0, 0]
