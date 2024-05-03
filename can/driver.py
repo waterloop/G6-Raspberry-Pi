@@ -31,7 +31,7 @@ def RECEIVE_MESSAGE(can_bus):
 
     rx_data = rx_msg.data
 
-    if rx_msg.arbitration_id == global_vars.BMS_BOARD :
+    if (rx_msg.arbitration_id == global_vars.BMS_BOARD) or (rx_msg.arbitration_id == global_vars.BMS_BOARD_WARN):
         bms_data.temperature[0]=rx_data[0]
         bms_data.temperature[1]=rx_data[1]
         bms_data.temperature[2]=rx_data[2]
@@ -40,35 +40,31 @@ def RECEIVE_MESSAGE(can_bus):
         bms_data.temperature[5]=rx_data[5]
         bms_data.error_code = rx_data[6]
     
-    elif rx_msg.arbitration_id == global_vars.SENSOR_BOARD:
+    elif (rx_msg.arbitration_id == global_vars.SENSOR_BOARD_1) or (rx_msg.arbitration_id == global_vars.SENSOR_BOARD_1_WARN):
+        sensors_board_data.temperature[0] = rx_data[0]
+        sensors_board_data.temperature[1] = rx_data[1]
+        sensors_board_data.imu_data = rx_data[2]
+        sensors_board_data.pressure_sensor_data = rx_data[3]
+        sensors_board_data.error_code = rx_data[4]
+    
+    elif (rx_msg.arbitration_id == global_vars.SENSOR_BOARD_2) or (rx_msg.arbitration_id == global_vars.SENSOR_BOARD_2_WARN):
         sensors_board_data.temperature[0] = rx_data[0]
         sensors_board_data.temperature[1] = rx_data[1]
         sensors_board_data.imu_data = rx_data[2]
         sensors_board_data.pressure_sensor_data = rx_data[3]
         sensors_board_data.error_code = rx_data[4]
 
-    elif rx_msg.arbitration_id == global_vars.MOTOR_CONTROLLER: #CHECK this might be wrong
+    elif rx_msg.arbitration_id == global_vars.MOTOR_CONTROLLER:
         motor_controller_data.battery_voltage = rx_data[0]
         motor_controller_data.battery_current = rx_data[1]
         motor_controller_data.motor_speed = rx_data[2]
         motor_controller_data.motor_controller_temp = rx_data[3]
         motor_controller_data.driving_direction = rx_data[4]
         motor_controller_data.error_code = rx_data[5]
-
-    elif rx_msg.arbitration_id == global_vars.MOTOR_CONTROLLER_1:
-        kelly_data_frame1.driving_direction_kelly = rx_data[0]
-        kelly_data_frame1.motor_speed_kelly = rx_data[1]
-        kelly_data_frame1.motor_error_code_kelly = rx_data[2]
-
-    elif rx_msg.arbitration_id == global_vars.MOTOR_CONTROLLER_2:
-        kelly_data_frame2.battery_voltage_kelly = rx_data[0]
-        kelly_data_frame2.battery_current_kelly = rx_data[1]
-        kelly_data_frame2.motor_temp_kelly = rx_data[2]
-        kelly_data_frame2.motor_controller_temp_kelly = rx_data[3]
-
+    
 """
 FUNCTION:       CREATE_SEND_DATA
-@ARG can_bus:   
+@ARG arbitration_id
 RETURN:         data packet. Bytearray.
 WHAT IT DO?     Creates 'data' based on the arbitrationID 
                 of the frame we wish to send. Reveals the current state of 
@@ -77,7 +73,7 @@ WHAT IT DO?     Creates 'data' based on the arbitrationID
 def CREATE_SEND_DATA(arbitrationID):
     # define data object 
     data = []
-    if arbitrationID == global_vars.BMS_BOARD:
+    if (arbitrationID == global_vars.BMS_BOARD) or (arbitrationID == global_vars.BMS_BOARD_WARN):
         data = [bms_data.temperature[0], 
                 bms_data.temperature[1], 
                 bms_data.temperature[2], 
@@ -87,42 +83,25 @@ def CREATE_SEND_DATA(arbitrationID):
                 bms_data.error_code,
                 0]
 
-    elif arbitrationID == global_vars.SENSOR_BOARD:
-        data = [sensors_board_data.temperature[0],
-                sensors_board_data.temperature[1],
-                sensors_board_data.imu_data,
-                sensors_board_data.pressure_sensor_data,
-                sensors_board_data.error_code,
-                0,
-                0,
+    elif (arbitrationID == global_vars.SENSOR_BOARD_1) or (arbitrationID == global_vars.SENSOR_BOARD_1_WARN):
+        data = [sensors_1.pressure_sensor_data & (0b11111111 << 8),
+                sensors_1.pressure_sensor_data & 0b11111111,
+                sensors_1.lim_temperature[0] & (0b11111111 << 8),
+                sensors_1.lim_temperature[0] & (0b11111111),
+                sensors_1.lim_temperature[1] & (0b11111111 << 8),
+                sensors_1.lim_temperature[1] & (0b11111111),
+                sensors_1.error_code,
                 0]
-        
-    elif arbitrationID == global_vars.MOTOR_CONTROLLER: #CHECK this might be wrong
+    elif (arbitrationID == global_vars.SENSOR_BOARD_2) or (arbitrationID == global_vars.SENSOR_BOARD_2_WARN):
+        data = []
+
+    elif (arbitrationID == global_vars.MOTOR_CONTROLLER) or (arbitrationID == global_vars.MOTOR_CONTROLLER_WARN):
         data = [motor_controller_data.battery_voltage,
                 motor_controller_data.battery_current,
                 motor_controller_data.motor_speed,
                 motor_controller_data.motor_controller_temp,
                 motor_controller_data.driving_direction,
                 motor_controller_data.error_code,
-                0,
-                0]
-
-    elif arbitrationID == global_vars.MOTOR_CONTROLLER_1:
-        data = [kelly_data_frame1.driving_direction_kelly,
-                kelly_data_frame1.motor_speed_kelly,
-                kelly_data_frame1.motor_error_code_kelly,
-                0,
-                0,
-                0,
-                0]
-
-    elif arbitrationID == global_vars.MOTOR_CONTROLLER_2:
-        data = [kelly_data_frame2.battery_voltage_kelly,
-                kelly_data_frame2.battery_current_kelly,
-                kelly_data_frame2.motor_temp_kelly,
-                kelly_data_frame2.motor_controller_temp_kelly,
-                0,
-                0,
                 0,
                 0]
 
