@@ -56,7 +56,7 @@ def RECEIVE_MESSAGE(can_bus):
     #     sensors_board_data.pressure_sensor_data = rx_data[3]
     #     sensors_board_data.error_code = rx_data[4]
 
-    # elif rx_msg.arbitration_id == global_vars.MOTOR_CONTROLLER:
+    # elif (rx_msg.arbitration_id == global_vars.MOTOR_CONTROLLER) or (rx_msg.arbitration_id == global_vars.MOTOR_CONTROLLER_WARN):
     #     motor_controller_data.battery_voltage = rx_data[0]
     #     motor_controller_data.battery_current = rx_data[1]
     #     motor_controller_data.motor_speed = rx_data[2]
