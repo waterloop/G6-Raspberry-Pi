@@ -7,6 +7,8 @@ this will be a child process, spawned
 import os
 import mmap
 
+
+"""REMOVE MAIN IN PROD""" 
 def main():
     s = server_cpp_to_py()
 
