@@ -87,12 +87,12 @@ def CREATE_SEND_DATA(arbitrationID):
 
     elif (arbitrationID == global_vars.SENSOR_BOARD_1) or (arbitrationID == global_vars.SENSOR_BOARD_1_WARN):
 
-        msb_pressure = bytes(sensors_1.pressure_sensor_data & (0b11111111 << 8))
-        lsb_pressure = bytes(sensors_1.pressure_sensor_data & 0b11111111)
-        msb_lim_temp_0 = bytes(sensors_1.lim_temperature[0] & (0b11111111 << 8))
-        lsb_lim_temp_0 = bytes(sensors_1.lim_temperature[0] & (0b11111111))
-        msb_lim_temp_1 = bytes(sensors_1.lim_temperature[1] & (0b11111111 << 8))
-        lsb_lim_temp_1 = bytes(sensors_1.lim_temperature[1] & (0b11111111))
+        msb_pressure = (sensors_1.pressure_sensor_data & (0b11111111 << 8))
+        lsb_pressure = (sensors_1.pressure_sensor_data & 0b11111111)
+        msb_lim_temp_0 = (sensors_1.lim_temperature[0] & (0b11111111 << 8))
+        lsb_lim_temp_0 = (sensors_1.lim_temperature[0] & (0b11111111))
+        msb_lim_temp_1 = (sensors_1.lim_temperature[1] & (0b11111111 << 8))
+        lsb_lim_temp_1 = (sensors_1.lim_temperature[1] & (0b11111111))
 
         data = [msb_pressure,
                 lsb_pressure,
@@ -105,10 +105,10 @@ def CREATE_SEND_DATA(arbitrationID):
 
     elif (arbitrationID == global_vars.SENSOR_BOARD_2) or (arbitrationID == global_vars.SENSOR_BOARD_2_WARN):
 
-        msb_x_accel = bytes(sensors_2.x_acceleration & (0b11111111 << 8))
-        lsb_x_accel = bytes(sensors_2.x_acceleration & (0b11111111))
-        msb_y_accel = bytes(sensors_2.y_acceleration & (0b11111111 << 8))
-        lsb_y_accel = bytes(sensors_2.y_acceleration & (0b11111111))
+        msb_x_accel = (sensors_2.x_acceleration & (0b11111111 << 8))
+        lsb_x_accel = (sensors_2.x_acceleration & (0b11111111))
+        msb_y_accel = (sensors_2.y_acceleration & (0b11111111 << 8))
+        lsb_y_accel = (sensors_2.y_acceleration & (0b11111111))
 
         data = [msb_x_accel,
                lsb_x_accel,
@@ -121,12 +121,12 @@ def CREATE_SEND_DATA(arbitrationID):
 
     elif (arbitrationID == global_vars.MOTOR_CONTROLLER) or (arbitrationID == global_vars.MOTOR_CONTROLLER_WARN):
 
-        msb_voltage = bytes(motor_controller_data.battery_voltage & (0b11111111 << 8))
-        lsb_voltage = bytes(motor_controller_data.battery_voltage& (0b11111111))
-        msb_current = bytes(motor_controller_data.battery_current & (0b11111111 << 8))
-        lsb_current = bytes(motor_controller_data.battery_current & (0b11111111))
-        msb_motor_speed = bytes(motor_controller_data.motor_speed & (0b11111111 << 8))
-        lsb_motor_speed = bytes(motor_controller_data.motor_speed & (0b11111111))
+        msb_voltage = (motor_controller_data.battery_voltage & (0b11111111 << 8))
+        lsb_voltage = (motor_controller_data.battery_voltage& (0b11111111))
+        msb_current = (motor_controller_data.battery_current & (0b11111111 << 8))
+        lsb_current = (motor_controller_data.battery_current & (0b11111111))
+        msb_motor_speed = (motor_controller_data.motor_speed & (0b11111111 << 8))
+        lsb_motor_speed = (motor_controller_data.motor_speed & (0b11111111))
 
         data = [msb_voltage,
                 lsb_voltage,
