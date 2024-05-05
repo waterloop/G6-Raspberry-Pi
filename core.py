@@ -2,6 +2,7 @@ import can
 import time
 
 def main():
+    time.sleep(5)
     bus = can.interface.Bus(channel="can0", bustype="socketcan", loopback=True)
     notifier = can.Notifier(bus, [can.Printer()])
     
