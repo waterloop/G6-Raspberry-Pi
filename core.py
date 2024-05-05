@@ -2,7 +2,7 @@ import can
 import time
 
 def main():
-    bus = can.interface.Bus(channel='can0', bustype='socketcan')
+    bus = can.interface.Bus(channel="can0", bustype="socketcan", loopback=True)
     notifier = can.Notifier(bus, [can.Printer()])
     
     try:
