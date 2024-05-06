@@ -4,7 +4,7 @@
 #include <sys/socket.h>
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/rfcomm.h>
-
+#include "shmem.h"
 // purpose: receive message from rpi
 int main()
 {
@@ -33,6 +33,7 @@ int main()
         int bytes_read = read(client, response_buffer, sizeof(response_buffer));
         if(bytes_read > 0) {
             // run shmem.cpp code here
+            shmem_BT_worker("BTshmem", response_buffer);
         }
 
         close(client);
