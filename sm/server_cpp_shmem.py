@@ -14,7 +14,7 @@ def main():
 
 
 def server_cpp_to_py():
-    name = 'MySharedMemory'
+    name = 'BTshmem'
   #  input("Press Enter after the C++ program has started...")
     message = ""
 
