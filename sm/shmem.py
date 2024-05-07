@@ -16,7 +16,10 @@ def CAN_shmem_listener(shmem_name: str, data_available: Event, data_processed: E
     shm = shared_memory.SharedMemory(name=shmem_name)
     while True:
         # read from CAN bus 
-        message = b"test" # b is used to cast to byte 
+        message = b"test" # b is used to cast to byte
+        """ NOTE: change b"test" to the function that reads from CAN. we
+        need to figure out which port we read from using SocketCAN still. D:
+        """
         data_processed.wait()
         data_processed.clear()
 
