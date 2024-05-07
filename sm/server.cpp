@@ -37,6 +37,7 @@ int main()
         }
         else {
             shmem_BT_worker("BTshmem", "words");
+            std::cout << "Made it to else" << std::endl;
             break;
         }
 
