@@ -36,7 +36,7 @@ def server_cpp_to_py():
     
     except FileNotFoundError as e:
         print(f"Error: {e}")
-        print("Make sure the C++ shared memory segment 'MySharedMemory' is created and available.")
+        print("Make sure the C++ shared memory segment 'BTshmem' is created and available.")
     except Exception as e:
         print(f"An error occurred: {e}")
 

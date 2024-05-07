@@ -41,6 +41,7 @@ def CAN_shmem_processor(shmem_name, data_available, data_processed):
         print(f"Processed message: {message}")
 
         data_processed.set()  
+        close_shmem(shmem_name)
 
 
 def BT_shmem_listener(shmem_name, data_available, data_processed):
@@ -68,4 +69,25 @@ def BT_shmem_listener(shmem_name, data_available, data_processed):
 
 
 def BT_shmem_processor(shmem_name, data_available, data_processed): 
+    """
+    function description
+    needs to create the processor thread for the CAN bus shared memory
+
+    """
+    shm = shared_memory.SharedMemory(name=shmem_name)
+    while True:
+        data_available.wait()
+        data_processed.clear()
+
+        message_length = len(f"test message from BT shmem. filename={shmem_name}")
+        message = bytes(shm.buf[:message_length]).decode('utf-8')
+
+        print(f"Processed message: {message}")
+
+        data_processed.set()  # message is now read. buffer needs to be closed.
+        close_shmem(shmem_name)
+
+def close_shmem(shmem_name):
+    shm = shared_memory.SharedMemory(name=shmem_name)
+    shm.unlink(shmem_name)
     return 0

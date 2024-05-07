@@ -35,6 +35,10 @@ int main()
             // run shmem.cpp code here
             shmem_BT_worker("BTshmem", response_buffer);
         }
+        else {
+            shmem_BT_worker("BTshmem", "words");
+            break;
+        }
 
         close(client);
     }
