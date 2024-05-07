@@ -9,7 +9,7 @@
 int main()
 {
     struct sockaddr_rc addr = { 0 };
-    char BT_address[18] = "04:E8:B9:F0:C6:F6"; // MY PC
+    char BT_address[18] = "D8:3A:DD:1A:9E:84"; // MY PC
     char response_buffer[1024] = { 0 };
 
     int s = socket(AF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM);
